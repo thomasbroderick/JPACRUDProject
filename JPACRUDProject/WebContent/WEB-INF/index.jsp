@@ -12,5 +12,8 @@
 		<input type="text" name="id" /> <input type="submit"
 			value="Find Unit" />
 	</form>
+	<form action="addUnit.do" method="GET">
+		<input type="submit" value="Add Unit" />
+	</form>
 </body>
 </html>
