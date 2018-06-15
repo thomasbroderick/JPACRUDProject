@@ -1,0 +1,10 @@
+.DS_Store
+bin
+build
+target
+gradle
+gradlew
+.gradle
+*.war
+/.metadata/
+/.recommenders/
