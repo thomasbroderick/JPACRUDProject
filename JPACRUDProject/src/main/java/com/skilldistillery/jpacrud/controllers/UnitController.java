@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -39,7 +40,7 @@ public class UnitController {
 		return mv;
 	}
 
-	@RequestMapping(path = "addUnit.do", method = RequestMethod.POST)
+	@RequestMapping(path = "createUnit.do", method = RequestMethod.POST)
 	public ModelAndView addUnitPost(Unit unit, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 		Unit u = udao.create(unit);
@@ -55,4 +56,40 @@ public class UnitController {
 		mv.setViewName("WEB-INF/show.jsp");
 		return mv;
 	}
-}
+	
+	@RequestMapping(path="deleteUnit.do", method = RequestMethod.GET)
+	public ModelAndView deleteUnit(int id) {
+		ModelAndView mv = new ModelAndView();
+		udao.delete(id);
+		mv.setViewName("WEB-INF/unitDeleted.jsp");
+		return mv;
+	}
+}	
+//	@RequestMapping(path="editUnit.do", method = RequestMethod.GET)
+//	public ModelAndView editUnitGet(@RequestParam(name="id") int id) {
+//		ModelAndView mv = new ModelAndView();
+//		Unit u = udao.retrieve(id);
+//		mv.addObject("unit", u);
+//		mv.addObject("id", id);
+//		mv.setViewName("WEB-INF/editUnit.jsp");
+//		return mv;
+//	}
+//
+////	@RequestMapping(path="updateUnit.do", method = RequestMethod.POST)
+////	public ModelAndView updateUnitPost(Unit unit, RedirectAttributes redir) {
+////		ModelAndView mv = new ModelAndView();
+////		int id = unit.getId();
+////		Unit u = udao.update(id, unit);
+////		redir.addFlashAttribute("unit", u); 
+////		mv.setViewName("redirect:unitEdited.do");
+////		return mv;
+////	}
+//	
+//	@RequestMapping(path="unitEdited.do", method = RequestMethod.GET)
+//	public ModelAndView edited(Unit unit) {
+//		ModelAndView mv = new ModelAndView();
+//		mv.addObject("unit", unit);
+//		mv.setViewName("WEB-INF/show.jsp");
+//		return mv;
+//	}
+//}

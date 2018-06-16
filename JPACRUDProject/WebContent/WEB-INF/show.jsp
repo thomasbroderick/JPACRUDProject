@@ -29,12 +29,23 @@
 				<tr>
 					<td>Specializations: ${unit.specializations }</td>
 				</tr>
+				
 			</table>
-
+		<form action="editUnit.do" method="GET">
+		<input type="hidden" name="id" value="${unit.id }">
+		<input type="submit" value="Edit Unit" />
+		</form>
+		<form action="deleteUnit.do" method="GET">
+		<input type="hidden" name="id" value="${unit.id }">
+		<input type="submit" value="Delete Unit" />
+	</form>
 		</c:when>
 		<c:when test="${film == null }">
 			<p>There is no unit with that ID in the database.</p>
 		</c:when>
 	</c:choose>
+	<h3>
+		<a href="index.do">Main menu</a>
+	</h3>
 </body>
 </html>
