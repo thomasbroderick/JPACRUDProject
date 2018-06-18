@@ -5,11 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+	integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	crossorigin="anonymous">
+
 <title>Home</title>
 </head>
 <body>
 	<form action="getUnit.do" method="GET">
-		<input type="text" name="id" /> <input type="submit"
+		<input type="text" name="name" /> <input type="submit"
 			value="Find Unit" />
 	</form>
 	<form action="addUnit.do" method="GET">

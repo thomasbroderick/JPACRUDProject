@@ -1,11 +1,14 @@
 package com.skilldistillery.jpacrud.data;
 
-import com.skilldistillery.jpacrud.entities.Unit;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.skilldistillery.jpacrud.entities.Unit;
 
 @Transactional
 @Component
@@ -40,7 +43,14 @@ public class UnitDAOImpl implements UnitDAO {
 	}
 
 	@Override
-	public Unit retrieve(int id) {
+	public List<Unit> retrieve(String searchTerm) {
+		String query = "SELECT u FROM Unit u WHERE u.name LIKE :string";
+		List<Unit> units = em.createQuery(query, Unit.class).setParameter("name", "%searchTerm%").getResultList();
+		return units;
+	}
+
+	@Override
+	public Unit retrieveById(int id) {
 		Unit u = em.find(Unit.class, id);
 		return u;
 	}

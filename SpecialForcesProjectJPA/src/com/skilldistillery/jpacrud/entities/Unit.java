@@ -21,6 +21,8 @@ public class Unit {
 	private int size;
 	private String specializations;
 
+	
+
 	public Unit() {
 	}
 
@@ -89,6 +91,10 @@ public class Unit {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

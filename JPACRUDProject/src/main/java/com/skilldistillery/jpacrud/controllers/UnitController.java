@@ -1,4 +1,7 @@
 package com.skilldistillery.jpacrud.controllers;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,24 +16,24 @@ import com.skilldistillery.jpacrud.entities.Unit;
 @Controller
 public class UnitController {
 	@Autowired
-	UnitDAO udao;	
-	
-	@RequestMapping(path="index.do")
+	UnitDAO udao;
+
+	@RequestMapping(path = "index.do")
 	public ModelAndView init() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("WEB-INF/index.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path="getUnit.do", method=RequestMethod.GET)
-	public ModelAndView getUnit(int id) {
+
+	@RequestMapping(path = "getUnit.do", method = RequestMethod.GET)
+	public ModelAndView getUnit(String name) {
 		ModelAndView mv = new ModelAndView();
-		Unit u = udao.retrieve(id);
-		mv.addObject("unit", u);
+		List<Unit> units = udao.retrieve(name);
+		mv.addObject("units", units);
 		mv.setViewName("WEB-INF/show.jsp");
 		return mv;
 	}
-	
+
 	@RequestMapping(path = "addUnit.do", method = RequestMethod.GET)
 	public ModelAndView addUnitGet() {
 		Unit u = new Unit();
@@ -44,52 +47,51 @@ public class UnitController {
 	public ModelAndView addUnitPost(Unit unit, RedirectAttributes redir) {
 		ModelAndView mv = new ModelAndView();
 		Unit u = udao.create(unit);
-		redir.addFlashAttribute("unit", u); 
+		redir.addFlashAttribute("unit", u);
 		mv.setViewName("redirect:unitCreated.do");
 		return mv;
 	}
-	
-	@RequestMapping(path="unitCreated.do", method = RequestMethod.GET)
+
+	@RequestMapping(path = "unitCreated.do", method = RequestMethod.GET)
 	public ModelAndView created(Unit unit) {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("unit", unit);
 		mv.setViewName("WEB-INF/show.jsp");
 		return mv;
 	}
-	
-	@RequestMapping(path="deleteUnit.do", method = RequestMethod.GET)
+
+	@RequestMapping(path = "deleteUnit.do", method = RequestMethod.GET)
 	public ModelAndView deleteUnit(int id) {
 		ModelAndView mv = new ModelAndView();
 		udao.delete(id);
 		mv.setViewName("WEB-INF/unitDeleted.jsp");
 		return mv;
 	}
-}	
-//	@RequestMapping(path="editUnit.do", method = RequestMethod.GET)
-//	public ModelAndView editUnitGet(@RequestParam(name="id") int id) {
-//		ModelAndView mv = new ModelAndView();
-//		Unit u = udao.retrieve(id);
-//		mv.addObject("unit", u);
-//		mv.addObject("id", id);
-//		mv.setViewName("WEB-INF/editUnit.jsp");
-//		return mv;
-//	}
-//
-////	@RequestMapping(path="updateUnit.do", method = RequestMethod.POST)
-////	public ModelAndView updateUnitPost(Unit unit, RedirectAttributes redir) {
-////		ModelAndView mv = new ModelAndView();
-////		int id = unit.getId();
-////		Unit u = udao.update(id, unit);
-////		redir.addFlashAttribute("unit", u); 
-////		mv.setViewName("redirect:unitEdited.do");
-////		return mv;
-////	}
-//	
-//	@RequestMapping(path="unitEdited.do", method = RequestMethod.GET)
-//	public ModelAndView edited(Unit unit) {
-//		ModelAndView mv = new ModelAndView();
-//		mv.addObject("unit", unit);
-//		mv.setViewName("WEB-INF/show.jsp");
-//		return mv;
-//	}
-//}
+
+	@RequestMapping(path = "editUnit.do", method = RequestMethod.GET)
+	public ModelAndView editUnit(@RequestParam(name = "id") int id) {
+		ModelAndView mv = new ModelAndView();
+		Unit u = udao.retrieveById(id);
+		mv.addObject("unit", u);
+		mv.addObject("id", id);
+		mv.setViewName("WEB-INF/editUnit.jsp");
+		return mv;
+	}
+
+	@RequestMapping(path = "updateUnit.do", method = RequestMethod.POST)
+	public ModelAndView updateUnit(Unit unit, int id, RedirectAttributes redir) {
+		ModelAndView mv = new ModelAndView();
+		Unit u = udao.update(id, unit);
+		redir.addFlashAttribute("unit", u);
+		mv.setViewName("redirect:unitEdited.do");
+		return mv;
+	}
+
+	@RequestMapping(path = "unitEdited.do", method = RequestMethod.GET)
+	public ModelAndView edited(Unit unit) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("unit", unit);
+		mv.setViewName("WEB-INF/show.jsp");
+		return mv;
+	}
+}
